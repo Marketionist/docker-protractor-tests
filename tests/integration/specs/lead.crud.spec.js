@@ -115,7 +115,7 @@ describe('Base CRM integration tests: ', function () {
         });
     });
 
-    it('change back the name of the status to "New", validate it changed inside lead', function () {
+    it('change back the name of the status to "New"', function () {
         browser.get('https://app.futuresimple.com/settings/leads/lead-status');
 
         // wait for page to get fully loaded
@@ -130,27 +130,6 @@ describe('Base CRM integration tests: ', function () {
 
         return leadPage.updatedNameInput.sendKeys(leadPage.newLeadStatus).then(function () {
             leadPage.saveUpdatedLeadButton.click();
-
-            // wait for page to get fully loaded
-            cmsProtractorHelper.waitFor(leadPage.loadingFinishedBar);
-            cmsProtractorHelper.waitFor(leadPage.leadsIcon);
-            // click on "Leads" icon to get to leads page
-            leadPage.leadsIcon.click();
-
-            // wait for page to get fully loaded
-            cmsProtractorHelper.waitFor(leadPage.loadingFinishedBar);
-            cmsProtractorHelper.waitFor(leadPage.leadNameLink);
-            // click on lead name to get to lead details page
-            leadPage.leadNameLink.click();
-
-            // wait for page to get fully loaded
-            cmsProtractorHelper.waitFor(leadPage.loadingFinishedBar);
-            // wait for lead status to appear
-            cmsProtractorHelper.waitFor(leadPage.leadStatus);
-            // validate "New" lead status
-            return leadPage.leadStatus.getText().then(function (text) {
-                expect(text).toEqual(leadPage.newLeadStatus);
-            });
         });
     });
 
