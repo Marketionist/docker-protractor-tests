@@ -1,0 +1,13 @@
+language: node_js
+
+services:
+  - docker
+
+install:
+  - docker build --no-cache -t test/tests .
+
+before_script:
+  - docker images -a | sort | uniq
+
+script:
+  - docker run -it --rm --name=dptest -p 8000:80 test/tests --suite all
